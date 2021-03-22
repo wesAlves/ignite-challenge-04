@@ -10,6 +10,8 @@ class CreateUserController {
 
     const createUser = this.createUserUseCase.execute({ email, name });
 
+    console.log("name");
+
     return response.json(createUser);
   }
 }
