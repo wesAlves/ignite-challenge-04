@@ -12,8 +12,6 @@ class ListAllUsersController {
 
     const all = this.listAllUsersUseCase.execute({ user_id: idString });
 
-    console.log(all);
-
     return response.json(all);
   }
 }
