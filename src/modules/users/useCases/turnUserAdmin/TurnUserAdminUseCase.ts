@@ -11,12 +11,11 @@ class TurnUserAdminUseCase {
   execute({ user_id }: IRequest): User {
     const user = this.usersRepository.findById(user_id);
 
-    if (user.admin === true) {
-      throw new Error("Already Adm");
+    if (!user) {
+      throw new Error("Does not exits");
     }
 
     user.admin = true;
-
     return user;
   }
 }

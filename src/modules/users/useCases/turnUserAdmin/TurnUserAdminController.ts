@@ -6,13 +6,14 @@ class TurnUserAdminController {
   constructor(private turnUserAdminUseCase: TurnUserAdminUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    // const { id } = request.body;
+    const { user_id } = request.params;
 
-    // const user = this.turnUserAdminUseCase.execute(id);
-
-    return response.send();
-
-    // Complete aqui
+    try {
+      const user = this.turnUserAdminUseCase.execute({ user_id });
+      return response.json(user);
+    } catch (error) {
+      return response.status(404).json({ error: error.message });
+    }
   }
 }
 
