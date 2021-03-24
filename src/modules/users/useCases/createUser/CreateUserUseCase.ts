@@ -12,13 +12,11 @@ class CreateUserUseCase {
   execute({ email, name }: IRequest): User {
     const userAlreadyExists = this.usersRepository.findByEmail(email);
 
-    if (userAlreadyExists) {
-      throw new Error();
+    if (!userAlreadyExists) {
+      const user = this.usersRepository.create({ email, name });
+      return user;
     }
-
-    const user = this.usersRepository.create({ email, name });
-
-    return user;
+    throw Error("Something went wrong");
   }
 }
 
