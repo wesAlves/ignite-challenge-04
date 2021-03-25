@@ -8,11 +8,15 @@ class ListAllUsersController {
   handle(request: Request, response: Response): Response {
     const { id } = request.headers;
 
-    const idString = String(id);
+    const idToString = String(id);
 
-    const all = this.listAllUsersUseCase.execute({ user_id: idString });
+    try {
+      const all = this.listAllUsersUseCase.execute({ user_id: idToString });
 
-    return response.json(all);
+      return response.json(all);
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
   }
 }
 
