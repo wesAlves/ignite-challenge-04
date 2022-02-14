@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Challange 04",
+        "description": "This is an API for user control",
+        "version": "1.0.0",
+        "contact": {
+            "email": "wes.bnvnd@gmail.com"
+        }
+    },
+    "paths": {
+        "/user": {
+            "post": {
+                "summary": "Create a user",
+                "description": "Create a new User",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Jhon Doe",
+                                "email": "jhon@doe.com"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        }
+    }
+}
