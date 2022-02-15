@@ -1,0 +1,116 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Challange 04",
+        "description": "This is an API for user control",
+        "version": "1.0.0",
+        "contact": {
+            "email": "wes.bnvnd@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["users"],
+                "summary": "Criar um novo usuário",
+                "description": "Criar um novo usuário",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Jhon Doe",
+                                "email": "jhon@doe.com"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Email já utilizado"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["users"],
+                "summary": "Retornoa todos os usuários",
+                "description": "Somente usuários admin pode acessar.",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado"
+                    },
+                    "400": {
+                        "description": "Você não tem permissão para listar esta rota"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["users"],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Transforma o usuário com o referido id em administrador do sistema",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário é agora é adm"
+                    },
+                    "400": {
+                        "description": "Impossível realizar a requisição"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["users"],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Busca um usuário especifico com base em seu ID",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado"
+                    },
+                    "400": {
+                        "description": "Email já utilizado"
+                    }
+                }
+            }
+        }
+    }
+}
