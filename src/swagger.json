@@ -9,10 +9,11 @@
         }
     },
     "paths": {
-        "/user": {
+        "/users": {
             "post": {
-                "summary": "Create a user",
-                "description": "Create a new User",
+                "tags": ["users"],
+                "summary": "Criar um novo usuário",
+                "description": "Criar um novo usuário",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -37,10 +38,76 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Criado com sucesso"
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Email já utilizado"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["users"],
+                "summary": "Retornoa todos os usuários",
+                "description": "Somente usuários admin pode acessar.",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado"
+                    },
+                    "400": {
+                        "description": "Você não tem permissão para listar esta rota"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["users"],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Transforma o usuário com o referido id em administrador do sistema",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário é agora é adm"
+                    },
+                    "400": {
+                        "description": "Impossível realizar a requisição"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["users"],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Busca um usuário especifico com base em seu ID",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado"
+                    },
+                    "400": {
+                        "description": "Email já utilizado"
                     }
                 }
             }
